@@ -9,11 +9,11 @@ const productManager = new ProductManager();
 app.get('/products', async (req, res) => {
     const limit = req.query.limit;
     const products = await productManager.getProducts();
-    const limitedProducts = await productManager.getLimitedProducts(limit);
+    const limitedProductsQuantity = await productManager.getPortionOfProducts(limit);
     if (!limit){
         return res.json(products);
     }else{
-        return res.json(limitedProducts);
+        return res.json(limitedProductsQuantity);
     }
 });
 

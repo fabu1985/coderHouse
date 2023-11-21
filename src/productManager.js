@@ -38,12 +38,11 @@ class ProductManager {
         return productsInJson;
     }
 
-    async getLimitedProducts(limit) {
+    async getPortionOfProducts(limit) {
         let productsInJson = await fs.promises.readFile("products.json", "utf-8");
         productsInJson = JSON.parse(productsInJson);
-    
         if (parseInt(limit) <= 0) {
-            console.log("Invalid limit");
+            console.log("Type a valid limit");
         } else {
             return productsInJson.slice(0, parseInt(limit));
         }
@@ -62,38 +61,6 @@ class ProductManager {
         
     }
 
-    async updateProduct(id, title, description, price, thumbnail, code, stock){
-        const products = await this.getProducts();
-        const existingProductIndex = products.findIndex(product => product.id === id);
-
-    if (existingProductIndex !== -1) {
-        products[existingProductIndex] = {
-            ...products[existingProductIndex],
-            title,
-            description,
-            price,
-            thumbnail,
-            code,
-            stock
-        };
-
-        await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2));
-        }
-        else{
-            console.log("The product to be updated was not found")
-        }
-    }
-
-    async deleteProduct(id){
-        const products = await this.getProducts();
-        const indexToDelete = products.findIndex((product)=> product.id===id);
-        if(indexToDelete!==-1){
-            products.splice(indexToDelete, 1);
-            await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2));
-        }else{
-            console.log('No such product exists')
-        }
-    }
 }
 
 module.exports = ProductManager;
