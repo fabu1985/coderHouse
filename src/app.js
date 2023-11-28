@@ -37,13 +37,19 @@ app.listen(8080, () => {
 const express = require("express");
 const userRouter = require('./routes/perritos.router.js')
 const app = express();
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + '/public'));
+/*app.use((req, res, next ) => {
+  console.log('time: ', Date.now());
+  next
+});*/
 
+
+//app.use('/static', express.static(__dirname + '/public'));
 app.use('/api/perritos', userRouter);
 
-let perritos = [
+/*let perritos = [
   { id: "1", name: "dogzilla", edad: 10 },
   { id: "2", name: "alma", edad: 5 },
   { id: "3", name: "coki", edad: 6 },
@@ -101,7 +107,7 @@ app.get('/api/products', (req, res) => {
 
 app.get('/api/products', (req, res) => {
   res.send('get productos')
-});
+});*/
 
 app.listen(8080, () => {
   console.log(`Example app listening on port http://localhost:8080`);

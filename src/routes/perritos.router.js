@@ -1,5 +1,4 @@
 const { Router } = require('express')
-
 const router = Router();
 const perritos = [
     { id: "1", name: "dogzilla", edad: 10 },
@@ -16,7 +15,6 @@ router.get('/');
 router.post('/');
 router.put('/:id');
 router.delete('/:id');
-
   
   router.get('/', (req, res) => {
     return res.status(200).json({ status: "ok", data: perritos });
